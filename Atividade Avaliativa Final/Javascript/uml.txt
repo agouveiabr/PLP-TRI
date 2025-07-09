@@ -1,0 +1,48 @@
+classDiagram
+    class Jogador {
+        -nome: string
+        -idade: number
+        -posicao: string
+        +exibirDados(): string
+    }
+
+    class Time {
+        -nome: string
+        -modalidade: string
+        -jogadores: Jogador[]
+        +adicionarJogador(jogador: Jogador): void
+        +removerJogador(jogador: Jogador): void
+        +exibirTime(): string
+    }
+
+    class Torneio {
+        <<Abstract>>
+        -nome: string
+        -times: Time[]
+        +adicionarTime(time: Time): void
+        +gerarMataMata(): any[]
+        +getModalidade(): string
+        +getPosicoes(): string[]
+    }
+
+    class TorneioFutsal {
+        +getModalidade(): string
+        +getPosicoes(): string[]
+    }
+
+    class TorneioBasquete {
+        +getModalidade(): string
+        +getPosicoes(): string[]
+    }
+
+    class TorneioVolei {
+        +getModalidade(): string
+        +getPosicoes(): string[]
+    }
+
+
+    Time "1" --* "0..*" Jogador
+    Torneio "1" --* "0..*" Time
+    Torneio <|-- TorneioFutsal
+    Torneio <|-- TorneioBasquete
+    Torneio <|-- TorneioVolei
