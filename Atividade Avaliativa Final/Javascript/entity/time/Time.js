@@ -12,13 +12,10 @@ export class Time {
   removerJogador(jogador) {}
 
   exibirTime() {
-    if (this.jogadores.length === 0) {
-      return `O time ${this.nome} não possui jogadores.`;
+    let dados = `Time: ${this.nome} (${this.modalidade})\n`;
+    for (const jogador of this.jogadores) {
+      dados += `  - ${jogador.exibirDados()}\n`;
     }
-
-    const jogadoresInfo = this.jogadores
-      .map((jogador) => jogador.exibirDados())
-      .join(" || ");
-    return `${this.nome} (${this.modalidade}) -> Jogadores: [${jogadoresInfo}]`;
+    return dados.trim();
   }
 }

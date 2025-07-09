@@ -1,4 +1,5 @@
 import readline
+from functools import reduce
 
 from entity.jogador import Jogador
 from entity.time import Time
@@ -168,9 +169,9 @@ class MenuController:
             else:
                 for item in resultado:
                     print(f"\nTime: {item['time']}")
-                    for j in item['jogadores']:
-                        print(f"  - {j.nome} ({j.posicao}, {j.idade} anos)")
-                print()
+                    jogadores_str = map(lambda j: f"  - {j.nome} ({j.posicao}, {j.idade} anos)", item["jogadores"])
+                    print("\n".join(jogadores_str))
+                    print()
 
         elif opcao == "2":
             posicao_busca = input("Nome da posição: ").lower()
@@ -190,9 +191,9 @@ class MenuController:
             else:
                 for item in resultado:
                     print(f"\nTime: {item['time']}")
-                    for j in item['jogadores']:
-                        print(f"  - {j.nome} ({j.posicao}, {j.idade} anos)")
-                print()
+                    jogadores_str = map(lambda j: f"  - {j.nome} ({j.posicao}, {j.idade} anos)", item["jogadores"])
+                    print("\n".join(jogadores_str))
+                    print()
         else:
             print("Opção inválida.\n")
 
@@ -213,8 +214,9 @@ class MenuController:
             print("Nenhum jogador neste torneio.")
             return
 
-        media = sum(j.idade for j in jogadores) / len(jogadores)
+        media = reduce(lambda acc, j: acc + j.idade, jogadores, 0) / len(jogadores)
         print(f"Média de idade dos jogadores no torneio \"{torneio.nome}\": {media:.1f} anos")
+        
     def popular_dados(self):
         print("Populando dados de exemplo...")
         exemplos = [

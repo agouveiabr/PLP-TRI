@@ -152,20 +152,18 @@ function adicionarJogadorATime() {
 
 function exibirTorneios() {
   if (torneios.length === 0) {
-    console.log("Nenhum torneio cadastrado.\n");
-  } else {
-    torneios.forEach((t, i) => {
-      console.log(`\n${i}: Torneio ${t.nome} (${t.getModalidade()})`);
-      if (t.times.length === 0) {
-        console.log("  Nenhum time cadastrado.");
-      } else {
-        t.times.forEach((time, j) => {
-          console.log(`  ${j}: ${time.exibirTime()}`);
-        });
-      }
-    });
-    console.log("");
+    console.log("Nenhum torneio disponível.\n");
+    return promptMenu();
   }
+
+  torneios.forEach((t) => {
+    console.log(`\nTorneio: ${t.nome} (${t.getModalidade()})`);
+    t.times.forEach((time) => {
+      console.log(time.exibirTime());
+    });
+  });
+
+  console.log("");
   promptMenu();
 }
 
